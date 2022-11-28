@@ -9,5 +9,4 @@
   :build-operation "program-op"
   :build-pathname "dist/update-sources"
   :entry-point "update-sources:main"
-  :depends-on ("update-sources/main"
-               "inferior-shell"))
+  :depends-on ("update-sources/main"))
