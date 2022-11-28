@@ -1,0 +1,96 @@
+{
+  "nodes": {
+    "asdf-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668734764,
+        "narHash": "sha256-9pYtv8aUurqrjL9IA0YpBGdWaZO7xKKXppe43nj+ays=",
+        "ref": "refs/heads/master",
+        "rev": "fe6e3ab741c71ecebc8503e20637d4c940326421",
+        "revCount": 4040,
+        "type": "git",
+        "url": "https://gitlab.common-lisp.net/asdf/asdf"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitlab.common-lisp.net/asdf/asdf"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "gitignore": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1660459072,
+        "narHash": "sha256-8DFJjXG8zqoONA1vXtgeKXy68KdJL5UaXR8NtVMUbx8=",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "a20de23b925fd8264fd7fad6454652e142fd7f73",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
+    "hly-nixpkgs": {
+      "locked": {
+        "lastModified": 1669535166,
+        "narHash": "sha256-+i/yeeHPOJK7A8uQVCbrnnx0ZKYw6R4QuL/Ub9JMKGA=",
+        "owner": "hraban",
+        "repo": "nixpkgs",
+        "rev": "8ba42100dc3ed329d0c76bb3705b28129c61c54e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hraban",
+        "ref": "feat/lisp-packages-lite",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1669535121,
+        "narHash": "sha256-koZLM7oWVGrjyHnYDo7/w5qlmUn9UZUKSFNfmIjueE8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b45ec953794bb07922f0468152ad1ebaf8a084b3",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "asdf-src": "asdf-src",
+        "flake-utils": "flake-utils",
+        "gitignore": "gitignore",
+        "hly-nixpkgs": "hly-nixpkgs",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
