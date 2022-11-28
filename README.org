@@ -1,0 +1,32 @@
+* Check for updates to Nix git sources
+
+Given an entire Nix scope, find all git controlled source derivations that can be updated.
+
+Purpose built tool for =lispPackagesLite=. I use this to see if any of the pinned packages in that scope have updates.
+
+Usage:
+
+#+begin_src shell
+nix run --update-input hly-nixpkgs
+#+end_src
+
+This tool is a proof of concept. Feel free to use it, but I built this for myself to scratch an itch, not for public release.
+
+** License
+
+update-sources - Nix source update fetcher
+Copyright © 2022  Hraban Luyat
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, version 3 of the License.
+
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+

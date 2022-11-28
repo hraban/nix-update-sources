@@ -44,6 +44,9 @@
                 mkdir -p "$out/bin"
                 cp dist/update-sources "$out/bin/"
               '';
+              meta = {
+                license = "AGPLv3";
+              };
             };
 
             # Create a JSON file with every git source derivation in this entire
