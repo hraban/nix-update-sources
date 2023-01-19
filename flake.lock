@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "asdf-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1668734764,
-        "narHash": "sha256-9pYtv8aUurqrjL9IA0YpBGdWaZO7xKKXppe43nj+ays=",
-        "ref": "refs/heads/master",
-        "rev": "fe6e3ab741c71ecebc8503e20637d4c940326421",
-        "revCount": 4040,
-        "type": "git",
-        "url": "https://gitlab.common-lisp.net/asdf/asdf"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://gitlab.common-lisp.net/asdf/asdf"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -53,11 +37,11 @@
     },
     "hly-nixpkgs": {
       "locked": {
-        "lastModified": 1669619182,
-        "narHash": "sha256-EtxEelGR5AyavXz9AlpSTueXw1mS0wcDAnsXK6XxfZ8=",
+        "lastModified": 1670388367,
+        "narHash": "sha256-cJFG9g6s0i5Om8AWAez7//4URdlezCp6awfS50kkH5o=",
         "owner": "hraban",
         "repo": "nixpkgs",
-        "rev": "a2ac266f236150af30f9eb624c2e9e0ab1359a09",
+        "rev": "a338dfe8d295f60c59cc43233309ceadb3c3ea2c",
         "type": "github"
       },
       "original": {
@@ -69,11 +53,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1669535121,
-        "narHash": "sha256-koZLM7oWVGrjyHnYDo7/w5qlmUn9UZUKSFNfmIjueE8=",
+        "lastModified": 1673947312,
+        "narHash": "sha256-xx/2nRwRy3bXrtry6TtydKpJpqHahjuDB5sFkQ/XNDE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b45ec953794bb07922f0468152ad1ebaf8a084b3",
+        "rev": "2d38b664b4400335086a713a0036aafaa002c003",
         "type": "github"
       },
       "original": {
@@ -83,7 +67,6 @@
     },
     "root": {
       "inputs": {
-        "asdf-src": "asdf-src",
         "flake-utils": "flake-utils",
         "gitignore": "gitignore",
         "hly-nixpkgs": "hly-nixpkgs",

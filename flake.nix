@@ -1,3 +1,17 @@
+# Copyright © 2022, 2023  Hraban Luyat
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 {
   description = "Scan a scope for sources which can be updated";
   inputs = {
@@ -7,36 +21,22 @@
       url = "github:hercules-ci/gitignore.nix";
     };
     hly-nixpkgs.url = "github:hraban/nixpkgs/feat/lisp-packages-lite";
-    # This isn’t necessary anymore now that lispPackagesLite ships with latest
-    # ASDFv3, but I’m leaving it in as a demonstration.
-    asdf-src = {
-      url = "git+https://gitlab.common-lisp.net/asdf/asdf";
-      flake = false;
-    };
   };
   outputs = {
-    self, nixpkgs, asdf-src, hly-nixpkgs, gitignore, flake-utils
+    self, nixpkgs, hly-nixpkgs, gitignore, flake-utils
   }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = nixpkgs.legacyPackages.${system};
         cleanSource = src: gitignore.lib.gitignoreSource (pkgs.lib.cleanSource src);
         inherit (pkgs.callPackage hly-nixpkgs {}) lispPackagesLite;
       in
       with lispPackagesLite;
-      let
-        # How to create a new lisp dependency on the fly from source
-        asdf = lispDerivation { src = asdf-src; lispSystem = "asdf"; };
-      in
         {
           packages = {
-
-            default = pkgs.writeShellScriptBin "my-test" ''
-              nix run .#parse -- $(nix build --no-link --print-out-paths .#sources)
-            '';
-
             # Program that ingests a sources.json and suggests updates
-            parse = lispDerivation {
+            update-sources = lispDerivation {
+              name = "update-sources";
               lispSystem = "update-sources";
               lispDependencies = [ arrow-macros inferior-shell asdf str ];
               src = cleanSource ./.;
@@ -49,9 +49,18 @@
               };
             };
 
+            default = self.packages.${system}.update-sources;
+
             # Create a JSON file with every git source derivation in this entire
             # scope. This happens to be easiest to do in Nix.
             sources = pkgs.callPackage ./get-sources.nix { scope = lispPackagesLite; };
+          };
+          apps.default = flake-utils.lib.mkApp {
+            drv = pkgs.writeShellScriptBin "update" ''
+              set -e
+              nix build --no-link .#sources
+              nix run .#update-sources -- $(nix build --no-link --print-out-paths .#sources)
+            '';
           };
         });
   }
