@@ -15,7 +15,7 @@ This tool is a proof of concept. Feel free to use it, but I built this for mysel
 ** License
 
 update-sources - Nix source update fetcher
-Copyright © 2022  Hraban Luyat
+Copyright © 2022, 2023  Hraban Luyat
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published

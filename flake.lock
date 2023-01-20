@@ -37,11 +37,11 @@
     },
     "hly-nixpkgs": {
       "locked": {
-        "lastModified": 1670388367,
-        "narHash": "sha256-cJFG9g6s0i5Om8AWAez7//4URdlezCp6awfS50kkH5o=",
+        "lastModified": 1674180424,
+        "narHash": "sha256-H0k8oP5x3E31nd/zusN6/ariLdCG3sA9/vDMT8tXUdM=",
         "owner": "hraban",
         "repo": "nixpkgs",
-        "rev": "a338dfe8d295f60c59cc43233309ceadb3c3ea2c",
+        "rev": "a37eff552354c343506946f382ee0332813b2764",
         "type": "github"
       },
       "original": {

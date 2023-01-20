@@ -29,7 +29,9 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         cleanSource = src: gitignore.lib.gitignoreSource (pkgs.lib.cleanSource src);
-        inherit (pkgs.callPackage hly-nixpkgs {}) lispPackagesLite;
+        lispPackagesLite = hly-nixpkgs.legacyPackages.${system}.lispPackagesLite.override {
+          inherit pkgs;
+        };
       in
       with lispPackagesLite;
         {
