@@ -38,14 +38,24 @@
             update-sources = lispDerivation {
               name = "update-sources";
               lispSystem = "update-sources";
-              lispDependencies = [ arrow-macros inferior-shell asdf str ];
+              lispDependencies = [
+                arrow-macros
+                asdf
+                cl-ppcre
+                inferior-shell
+                str
+              ];
               src = cleanSource ./.;
               installPhase = ''
                 mkdir -p "$out/bin"
                 cp dist/update-sources "$out/bin/"
               '';
+              nativeBuildInputs = [ pkgs.makeWrapper ];
+              postInstall = ''
+                wrapProgram $out/dist/update-sources --suffix PATH : "${pkgs.jq}/bin"
+              '';
               meta = {
-                license = "AGPLv3";
+                license = pkgs.lib.licenses.agpl3Only;
               };
             };
 
@@ -55,6 +65,7 @@
             # scope. This happens to be easiest to do in Nix.
             sources = pkgs.callPackage ./get-sources.nix { scope = lispPackagesLite; };
           };
+          # Utility script to combine both
           apps.default = flake-utils.lib.mkApp {
             drv = pkgs.writeShellScriptBin "update" ''
               set -e

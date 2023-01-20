@@ -1,4 +1,4 @@
-;; Copyright © 2022  Hraban Luyat
+;; Copyright © 2022, 2023  Hraban Luyat
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU Affero General Public License as published
@@ -17,6 +17,7 @@
   (:use #:cl #:arrow-macros)
   (:local-nicknames (#:sh #:inferior-shell))
   (:import-from #:str)
+  (:import-from #:cl-ppcre)
   (:export #:main))
 
 (in-package #:update-sources/main)
@@ -43,15 +44,27 @@
        (str:split #\Tab)
        first))
 
+(defun read-sha (url rev)
+  ;; MFW I think I’m galaxy brain scripting but I’m blub. Is this the inverse of
+  ;; xkcd 224?
+  (cl-ppcre:register-groups-bind (user repo) ("^https://github\\.com/([^/]+)/([^/]+?)\\.git" url)
+    (sh:run/ss `(sh:pipe
+                 (nix run "nixpkgs#nix-prefetch-github" -- ,user ,repo --rev ,rev)
+                 (jq -r ".sha256")))))
+
+(defun process (system old url)
+  ;; Only works with hashes for now. Actual versions would need better
+  ;; heuristics: fetch all tags, see if there’s an update?
+  (when (hashp old)
+    (let ((head (read-head url)))
+      (unless (equal head old)
+        (let ((row (append (list system old head)
+                           (some-> (read-sha url head) list))))
+          (format T "~A~%" (str:join #\Tab row)))))))
+
 (defun main-aux (fname)
   (dolist (line (parse fname))
-    (destructuring-bind (system old url) (str:split #\Tab line)
-      ;; Only works with hashes for now. Actual versions would need better
-      ;; heuristics: fetch all tags, see if there’s an update?
-      (when (hashp old)
-        (let ((head (read-head url)))
-          (unless (equal head old)
-            (format T "~A: ~A -> ~A~%" system old head)))))))
+    (apply #'process (str:split #\Tab line))))
 
 (defun main ()
   (apply #'main-aux (uiop:command-line-arguments)))
