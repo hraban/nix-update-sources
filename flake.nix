@@ -20,18 +20,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hercules-ci/gitignore.nix";
     };
-    hly-nixpkgs.url = "github:hraban/nixpkgs/feat/lisp-packages-lite";
+    cl-nix-lite = {
+      flake = false;
+      url = "github:hraban/cl-nix-lite";
+    };
   };
   outputs = {
-    self, nixpkgs, hly-nixpkgs, gitignore, flake-utils
+    self, nixpkgs, cl-nix-lite, gitignore, flake-utils
   }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         cleanSource = src: gitignore.lib.gitignoreSource (pkgs.lib.cleanSource src);
-        lispPackagesLite = hly-nixpkgs.legacyPackages.${system}.lispPackagesLite.override {
-          inherit pkgs;
-        };
+        lispPackagesLite = import cl-nix-lite { inherit pkgs; };
       in
       with lispPackagesLite;
         {
@@ -48,13 +49,10 @@
                 str
               ];
               src = cleanSource ./.;
-              installPhase = ''
-                mkdir -p "$out/bin"
-                cp dist/update-sources "$out/bin/"
-              '';
+              dontStrip = true;
               nativeBuildInputs = [ pkgs.makeWrapper ];
               postInstall = ''
-                wrapProgram $out/dist/update-sources --suffix PATH : "${pkgs.jq}/bin"
+                wrapProgram $out/bin/update-sources --suffix PATH : "${pkgs.jq}/bin"
               '';
               meta = {
                 license = pkgs.lib.licenses.agpl3Only;

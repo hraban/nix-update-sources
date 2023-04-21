@@ -7,7 +7,7 @@ Purpose built tool for =lispPackagesLite=. I use this to see if any of the pinne
 Usage:
 
 #+begin_src shell
-nix run --update-input hly-nixpkgs
+nix run --update-input cl-nix-lite
 #+end_src
 
 This tool is a proof of concept. Feel free to use it, but I built this for myself to scratch an itch, not for public release.

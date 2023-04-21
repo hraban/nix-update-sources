@@ -21,6 +21,6 @@
   :author "Hraban Luyat"
   :licence "AGPLv3"
   :build-operation "program-op"
-  :build-pathname "dist/update-sources"
+  :build-pathname "bin/update-sources"
   :entry-point "update-sources:main"
   :depends-on ("update-sources/main"))
